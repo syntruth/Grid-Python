@@ -19,10 +19,7 @@ class Grid(dict):
     self._set_corners()
 
   def is_sane(self, point):
-    x = point.x()
-    y = point.y()
-
-    return (x >= 1 and x <= self.sizex) and (y >= 1 and y <= self.sizey)
+    return (1 <= point.x() <= self.sizex) and (1 <= point.y() <= self.sizey)
 
   def set_cell(self, point, data):
     if self.is_sane(point):

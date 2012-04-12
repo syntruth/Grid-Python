@@ -212,10 +212,8 @@ class Grid(dict):
   def copy(self):
     newgrid = Grid(self.sizex, self.sizey, self.default)
 
-    # Do a 'low level' copy instead of calling 
-    # set_cell and get_cell.
-    for point in self.keys():
-      newgrid[point] = self[point]
+    for cell in self.contents():
+      newgrid.set_cell(cell.point, cell.content)
 
     return newgrid
 

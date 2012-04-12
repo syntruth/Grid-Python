@@ -1,4 +1,6 @@
 2012-04-12
+* Already rewrote Grid.copy() to prevent old Cell instance references in
+  the returned new Grid instance.
 * Added clear_all(), populate(), number_of_cells() and copy() methods to
   the Grid glass.
 * Moved neighbors() and traverse() from Point class to Grid class, where

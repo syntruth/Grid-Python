@@ -33,7 +33,7 @@ class Grid(dict):
 
     return None
 
-  def get_cells(self, points=[], include_empty):
+  def get_cells(self, points=[], include_empty=False):
     cells = []
 
     for point in points:
@@ -230,7 +230,7 @@ class Grid(dict):
     rets = []
     szy  = self.sizey + 1
     fmt  = '|'.join([' %s '] * szy)
-    line = '-' * len(fmt.replace('%', ''))
+    line = '-' * (len(fmt) - fmt.count('%'))
     top  = [' ']
     
     for x in range(1, self.sizex + 1):

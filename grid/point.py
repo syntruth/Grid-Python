@@ -15,33 +15,15 @@ class Point(complex):
     BottomLeft, Bottom, BottomRight
   ]
 
+  @staticmethod
+  def from_vector(vector):
+    return Point(*vector)
+
   def x(self):
     return self.real
 
   def y(self):
     return self.imag
-
-  def neighbors(self):
-    results = []
-    for coords in self.vectors:
-      if coords == self.Center:
-        continue
-      vector = Point(*coords)
-      results.append(self + vector)
-
-    return results
-
-  def traverse(self, vector, limit=1):
-    results = []
-    vector  = Point(*vector)
-    point   = Point(self.real, self.imag)
-    
-    while limit:
-      limit -= 1
-      point  = point + vector
-      results.append(point)
-
-    return results
 
   def __add__(self, other):
     real = self.real + other.real

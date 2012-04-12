@@ -33,6 +33,18 @@ class Grid(dict):
 
     return None
 
+  def get_cells(self, points=[], include_empty):
+    cells = []
+
+    for point in points:
+      if self.is_sane(point):
+        cell = self.get_cell(point, include_empty)
+
+        if cell or include_empty:
+          cells.append(cell)
+
+    return cells
+
   def get_row(self, y, include_empty=False):
     cells = []
 
@@ -60,6 +72,42 @@ class Grid(dict):
   def clear_cell(self, point):
     if self.has_key(point):
       del self[point]
+
+  def clear_all(self):
+    for point in self.keys():
+      del self[point]
+
+  def neighbors(self, point, include_empty=False):
+    cells = []
+
+    for vector in Point.vectors:
+      if vector == Point.Center:
+        continue
+
+      vp = Point.from_vector(vector)
+      np = point + vp
+
+      if self.is_sane(np):
+        cell = self.get_cell(np, include_empty)
+
+        if cell or include_empty:
+          cells.append(cell)
+
+    return cells
+
+  def traverse(self, point, vector, include_empty=False):
+    cells  = []
+    vector = Point.from_vector(vector)
+
+    while self.is_sane(point):
+      cell = self.get_cell(point)
+
+      if cell or include_empty:
+        cells.append(point)
+
+      point += vector
+
+    return cells
 
   def swap_cells(self, point1, point2):
     for point in [point1, point2]:
@@ -109,17 +157,28 @@ class Grid(dict):
       return False
 
   def contents(self, include_empty=False):
-    results = []
+    cells = []
 
-    for x in range(1, self.sizex + 1):
-      for y in range(1, self.sizey + 1):
-        point = Point(x, y)
-        cell  = self.get_cell(point, include_empty)
-        
-        if cell or include_empty:
-          results.append(cell)
+    for point in self.keys():
+      cell = self.get_cell(point, include_empty)
 
-    return results
+      if cell or include_empty:
+        cells.append(cell)
+
+    return cells
+
+  def populate(self, cells=[]):
+    n = 0
+
+    for cell in cells:
+      point   = cell.point
+      content = cell.content
+
+      if self.is_sane(point):
+        self.set_cell(point, content)
+        n += 1
+
+    return n
 
   def random_cell(self, include_empty=False):
     x = randint(1, self.sizex)
@@ -134,6 +193,12 @@ class Grid(dict):
       
     return cells
 
+  def number_of_cells(self, include_empty=True):
+    if include_empty:
+      return self.sizex * self.sizey
+    else:
+      return len(self.keys())
+
   def resize(self, sizex=3, sizey=3):
     self.sizex = abs(sizex)
     self.sizey = abs(sizey)
@@ -143,6 +208,16 @@ class Grid(dict):
     for point in self.keys():
       if not self.is_sane(point):
         del self[point]
+
+  def copy(self):
+    newgrid = Grid(self.sizex, self.sizey, self.default)
+
+    # Do a 'low level' copy instead of calling 
+    # set_cell and get_cell.
+    for point in self.keys():
+      newgrid[point] = self[point]
+
+    return newgrid
 
   def print_grid(self):
     print self
@@ -201,7 +276,7 @@ if __name__ == '__main__':
   grid.set_cell(Point(4, 4), "X")
   grid.set_cell(Point(5, 4), "O")
 
-  print 'Origridinal grid setup'
+  print 'Original grid setup'
   print grid
 
   print 'Swap (1,8) and (3, 8)'
@@ -211,7 +286,7 @@ if __name__ == '__main__':
 
   print grid
 
-  print 'Resize gridrid to 5 x 5'
+  print 'Resize grid to 5 x 5'
   grid.resize(5, 5)
 
   print grid

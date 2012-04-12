@@ -1,4 +1,8 @@
 2012-04-12
+* Added clear_all(), populate(), number_of_cells() and copy() methods to
+  the Grid glass.
+* Moved neighbors() and traverse() from Point class to Grid class, where
+  they belonged in the first place.
 * Updated Grid.is_sane() to use more python-esque check for x/y values.
 * Updated Point class vector constants values, since they were "backwards"
   with 1,1 actually being in the top left of the grid.

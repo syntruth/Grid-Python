@@ -15,7 +15,7 @@ Example:
     grid.set_cell(Point(4, 4), "X")
     grid.set_cell(Point(5, 4), "O")
 
-    print 'Origridinal grid setup'
+    print 'Original grid setup'
     print grid
 
     print 'Swap (1,8) and (3, 8)'
@@ -25,7 +25,8 @@ Example:
 
     print grid
 
-    print 'Resize gridrid to 5 x 5'
+    print 'Resize grid to 5 x 5'
     grid.resize(5, 5)
 
     print grid
+

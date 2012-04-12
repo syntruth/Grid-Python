@@ -1,13 +1,13 @@
 class Point(complex):
-  TopLeft     = (-1,  1)
-  Top         = (0,   1)
-  TopRight    = (1,   1)
+  TopLeft     = (-1,  -1)
+  Top         = (0,   -1)
+  TopRight    = (1,   -1)
   Left        = (-1,  0)
   Center      = (0,   0)
   Right       = (1,   0)
-  BottomLeft  = (-1, -1)
-  Bottom      = (0,  -1)
-  BottomRight = (1,  -1)
+  BottomLeft  = (-1,  1)
+  Bottom      = (0,   1)
+  BottomRight = (1,   1)
 
   vectors = [
     TopLeft,    Top,    TopRight,

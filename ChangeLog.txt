@@ -1,3 +1,8 @@
+2012-04-12
+* Updated Grid.is_sane() to use more python-esque check for x/y values.
+* Updated Point class vector constants values, since they were "backwards"
+  with 1,1 actually being in the top left of the grid.
+
 2012-04-11
 
 * Initial release

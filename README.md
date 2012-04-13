@@ -25,7 +25,13 @@ Example:
 
     print grid
 
-    print 'Resize grid to 5 x 5'
+    print 'Get a subgrid of 3 x 3 starting at (4, 4) and set (3, 3) to #'
+    subg = grid.sub(Point(4, 4), 3)
+    subg.set_cell(Point(3, 3), '#')
+
+    print subg
+
+    print 'Resize original grid to 5 x 5'
     grid.resize(5, 5)
 
     print grid
@@ -44,7 +50,6 @@ Example:
      7 |   |   |   |   |   |   |   |
      8 | A | B | C |   |   |   |   |
     -----------------------------------
-
     Swap (1,8) and (3, 8)
     Move (2,8) to (2,1)
        | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
@@ -58,8 +63,14 @@ Example:
      7 |   |   |   |   |   |   |   |
      8 | C |   | A |   |   |   |   |
     -----------------------------------
-
-    Resize grid to 5 x 5
+    Get a subgrid of 3 x 3 starting at (4, 4) and set (3, 3) to #
+       | 1 | 2 | 3
+    ---------------
+     1 | X | O |
+     2 | O | X |
+     3 |   |   | #
+    ---------------
+    Resize original grid to 5 x 5
        | 1 | 2 | 3 | 4 | 5
     -----------------------
      1 |   | B |   |   |
@@ -68,7 +79,4 @@ Example:
      4 |   |   |   | X | O
      5 |   |   |   | O | X
     -----------------------
-
-
-
 

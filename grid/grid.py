@@ -18,8 +18,20 @@ class Grid(dict):
 
     self._set_corners()
 
+  def points(all=False):
+    if all:
+      all = []
+
+      for x in range(1, self.sizex + 1):
+        for y in range(1, self.sizey + 1):
+          all.append(Point(x, y))
+
+      return all
+    else:
+      return self.keys()
+
   def is_sane(self, point):
-    return (1 <= point.x() <= self.sizex) and (1 <= point.y() <= self.sizey)
+    return (1 <= point.x <= self.sizex) and (1 <= point.y <= self.sizey)
 
   def set_cell(self, point, data):
     if self.is_sane(point):
@@ -217,6 +229,28 @@ class Grid(dict):
 
     return newgrid
 
+  def sub(self, point, width=2, height=None):
+    # Default to an N x N grid.
+    if not height:
+      height = width
+
+    grid  = Grid(width, height, self.default)
+    cells = []
+
+    sx = point.x
+    sy = point.y
+
+    for x in range(1, width + 1):
+      for y in range(1, height + 1):
+        tmpx = sx + (x - 1)
+        tmpy = sy + (y - 1)
+        cell = self.get_cell(Point(tmpx, tmpy))
+
+        if cell:
+          grid.set_cell(Point(x, y), cell.content)
+
+    return grid
+
   def print_grid(self):
     print self
 
@@ -230,7 +264,7 @@ class Grid(dict):
     rets = []
     szy  = self.sizey + 1
     fmt  = '|'.join([' %s '] * szy)
-    line = '-' * (len(fmt) - fmt.count('%'))
+    line = '-' * len(fmt.replace('%', ''))
     top  = [' ']
     
     for x in range(1, self.sizex + 1):
@@ -283,8 +317,14 @@ if __name__ == '__main__':
   grid.move_cell(Point(2, 8), Point(2, 1))
 
   print grid
+ 
+  print 'Get a subgrid of 3 x 3 starting at (4, 4) and set (3, 3) to #'
+  subg = grid.sub(Point(4, 4), 3)
+  subg.set_cell(Point(3, 3), '#')
 
-  print 'Resize grid to 5 x 5'
+  print subg
+
+  print 'Resize original grid to 5 x 5'
   grid.resize(5, 5)
 
   print grid

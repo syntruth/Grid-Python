@@ -3,6 +3,9 @@ class Cell:
     self.point   = point
     self.content = content
 
+  def as_tuple(self):
+    return (self.point.x, self.point.y, self.content)
+
   def __str__(self):
     return "%s: %s" % (self.point, self.content)
 

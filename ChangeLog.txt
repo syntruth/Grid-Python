@@ -1,3 +1,7 @@
+2012-04-13
+* Added Grid.sub(point, width, height) method that will return a new Grid 
+  object consisting of Cells of width x height, starting at the cell
+  located at point. See README.md for an example.
 2012-04-12
 * Fixed a bit of code in Grid.__str__()
 * Already rewrote Grid.copy() to prevent old Cell instance references in

@@ -19,11 +19,10 @@ class Point(complex):
   def from_vector(vector):
     return Point(*vector)
 
-  def x(self):
-    return self.real
-
-  def y(self):
-    return self.imag
+  def __init__(self, x, y):
+    super(complex, self).__init__(x, y)
+    self.x = x
+    self.y = y
 
   def __add__(self, other):
     real = self.real + other.real
@@ -40,19 +39,4 @@ class Point(complex):
 
   def __repr__(self):
     return "Point(%s, %s)" % (self.real, self.imag)
-
-if __name__ == '__main__':
-  p1 = Point(4,  5)
-  p2 = Point(-1, 2)
-
-  print 'Neighbors of %s:' % p1
-  for p in p1.neighbors():
-    print p
-  print ''
-
-  print 'Traversing from %s towards top right 5 units:' % p2
-  for p in p2.traverse(Point.TopRight, 5):
-    print p
-  print ''
-
 

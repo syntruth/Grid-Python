@@ -20,7 +20,6 @@ class Point(complex):
     return Point(*vector)
 
   def __init__(self, x, y):
-    super(complex, self).__init__(x, y)
     self.x = x
     self.y = y
 
